@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>hello vue.js</title>
+  <script src="https://unpkg.com/vue"></script>
+  <!--<script src="vue.js"></script>-->
+</head>
+
+<body>
+  <div id="example">
+    <span>금액 : {{amount}}</span>
+  </div>
+
+  <script type="text/javascript">
+  var vm = new Vue({
+    el : '#example',
+    data : {amt : 1234567},
+    computed : {
+      amount: {
+        get : function() {
+        var num = new String("" + this.amt);
+        var result = "";
+        var cnt = 0;
+        for(var i=num.length-1; i >= 0; i--){
+          result = num[i] + result;
+          if(i % 3 == 2 && i !== 0){
+            result = ',' + result;
+          }
+        }
+        return result;
+      },
+      set : function(amt) {
+        if(typeof(amt) === String){
+          var result = parseInt(amt.replace(/,/g, ""))
+          if(isNaN(result)) this.amt = 0;
+          else this.amt = result;
+        }
+        else if(typeof(amt)){
+          this.amt = amt;
+        }
+      }
+    }
+    }
+  })
+  </script>
+</body>
+
+</html>
